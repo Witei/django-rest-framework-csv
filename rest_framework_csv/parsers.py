@@ -12,7 +12,8 @@ from rest_framework_csv.orderedrows import OrderedRows
 def preprocess_stream(stream, charset):
     if six.PY2:
         # csv.py doesn't do Unicode; encode temporarily:
-        return (chunk.encode(charset) for chunk in stream)
+        return (unicode(chunk, encoding=charset).encode(charset)
+                for chunk in stream)
     else:
         return stream
 
